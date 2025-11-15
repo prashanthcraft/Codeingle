@@ -260,12 +260,14 @@ export class SuggestModel implements IDisposable {
 			}
 
 			let lastChar = '';
-			if (isLowSurrogate(text.charCodeAt(text.length - 1))) {
-				if (isHighSurrogate(text.charCodeAt(text.length - 2))) {
-					lastChar = text.substr(text.length - 2);
+			if (text.length > 0) {
+				if (text.length >= 2 && isLowSurrogate(text.charCodeAt(text.length - 1))) {
+					if (isHighSurrogate(text.charCodeAt(text.length - 2))) {
+						lastChar = text.substr(text.length - 2);
+					}
+				} else {
+					lastChar = text.charAt(text.length - 1);
 				}
-			} else {
-				lastChar = text.charAt(text.length - 1);
 			}
 
 			const supports = supportsByTriggerCharacter.get(lastChar);
