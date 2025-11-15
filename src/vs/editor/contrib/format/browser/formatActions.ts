@@ -87,9 +87,11 @@ export class FormatOnType implements IEditorContribution {
 			triggerChars.add(ch.charCodeAt(0));
 		}
 		this._sessionDisposables.add(this._editor.onDidType((text: string) => {
-			const lastCharCode = text.charCodeAt(text.length - 1);
-			if (triggerChars.has(lastCharCode)) {
-				this._trigger(String.fromCharCode(lastCharCode));
+			if (text.length > 0) {
+				const lastCharCode = text.charCodeAt(text.length - 1);
+				if (triggerChars.has(lastCharCode)) {
+					this._trigger(String.fromCharCode(lastCharCode));
+				}
 			}
 		}));
 	}
